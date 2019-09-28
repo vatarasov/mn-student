@@ -1,5 +1,6 @@
 package ru.vtarasov.mn.student;
 
+import java.util.Optional;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -13,9 +14,8 @@ public class StudentRegistrationServiceImpl implements StudentRegistrationServic
     private StudentRepository repository;
 
     @Override
-    public Student register(String name) {
-        Student student = repository.save(Student.builder().name(name).build());
-        return student;
+    public Student register(Student student) {
+        return repository.save(student);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class StudentRegistrationServiceImpl implements StudentRegistrationServic
     }
 
     @Override
-    public Student find(String id) {
+    public Optional<Student> find(String id) {
         return repository.get(id);
     }
 }

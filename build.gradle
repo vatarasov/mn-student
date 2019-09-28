@@ -38,6 +38,7 @@ dependencies {
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
     compileOnly 'org.projectlombok:lombok:1.18.10'
     annotationProcessor 'org.projectlombok:lombok:1.18.10'
+    compile "io.micronaut.configuration:micronaut-hibernate-validator"
 }
 
 test.classpath += configurations.developmentOnly

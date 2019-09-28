@@ -2,48 +2,56 @@ package ru.vtarasov.mn.student;
 
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Consumes;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Delete;
+import io.micronaut.http.annotation.Error;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.PathVariable;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Produces;
 import io.micronaut.http.uri.UriBuilder;
+import io.micronaut.validation.Validated;
 import javax.inject.Inject;
+import javax.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 /**
  *
  */
+@Validated
 @Controller("/student")
 public class StudentController {
+
+    @RequiredArgsConstructor
+    private final class StudentNotFoundException extends Exception {}
+
     @Inject
     private StudentRegistrationService service;
 
     @Get("/{id}")
-    @Produces(MediaType.TEXT_PLAIN)
-    public HttpResponse get(@PathVariable("id") String id) {
-        Student student = service.find(id);
-        if (student == null) {
-            return HttpResponse.notFound();
-        }
-        return HttpResponse.ok(student.getName());
+    @Produces(MediaType.APPLICATION_JSON)
+    public Student get(@PathVariable("id") String id) throws StudentNotFoundException {
+        return service.find(id).orElseThrow(StudentNotFoundException::new);
     }
 
     @Post
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public HttpResponse post(String name) {
-        Student student = service.register(name);
+    @Consumes(MediaType.APPLICATION_JSON)
+    public HttpResponse post(@Valid @Body Student student) {
+        student = service.register(student);
         return HttpResponse.created(UriBuilder.of("/student/" + student.getId()).build());
     }
 
     @Delete("/{id}")
-    public HttpResponse delete(String id) {
-        Student student = service.find(id);
-        if (student == null) {
-            return HttpResponse.notFound();
-        }
+    public HttpResponse delete(String id) throws StudentNotFoundException {
+        Student student = service.find(id).orElseThrow(StudentNotFoundException::new);
         service.unregister(student);
         return HttpResponse.ok();
+    }
+
+    @Error(value = StudentNotFoundException.class)
+    public HttpResponse handleNotFound() {
+        return HttpResponse.notFound();
     }
 }
