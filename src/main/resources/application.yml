@@ -1,3 +1,17 @@
 micronaut:
   application:
     name: student
+datasources:
+  default:
+    url: jdbc:postgresql://localhost:5432/mn_student
+    username: postgres
+    password: password
+    driverClassName: org.postgresql.Driver
+jpa:
+  default:
+    packages-to-scan:
+      - 'ru.vtarasov.mn.student'
+liquibase:
+  datasources:
+    default:
+      change-log: 'classpath:db/changelog/db.changelog-master.yaml'

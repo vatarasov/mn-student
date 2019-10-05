@@ -20,11 +20,11 @@ public class StudentRegistrationServiceImpl implements StudentRegistrationServic
 
     @Override
     public void unregister(Student student) {
-        repository.delete(student.getId());
+        repository.deleteById(student.getId());
     }
 
     @Override
     public Optional<Student> find(String id) {
-        return repository.get(id);
+        return repository.findById(id);
     }
 }

@@ -40,6 +40,11 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.10'
     annotationProcessor 'org.projectlombok:lombok:1.18.10'
     compile "io.micronaut.configuration:micronaut-hibernate-validator"
+    annotationProcessor 'io.micronaut.data:micronaut-data-processor:1.0.0.M2'
+    compile 'io.micronaut.data:micronaut-data-hibernate-jpa:1.0.0.M2'
+    compile "io.micronaut.configuration:micronaut-jdbc-hikari"
+    runtime "org.postgresql:postgresql:42.2.6"
+    compile "io.micronaut.configuration:micronaut-liquibase"
 }
 
 test.classpath += configurations.developmentOnly

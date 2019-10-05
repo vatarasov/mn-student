@@ -1,13 +1,11 @@
 package ru.vtarasov.mn.student;
 
-import java.util.Optional;
+import io.micronaut.data.annotation.Repository;
+import io.micronaut.data.repository.CrudRepository;
 
 /**
  * @author vtarasov
- * @since 21.09.2019
+ * @since 04.10.2019
  */
-public interface StudentRepository {
-    Optional<Student> get(String id);
-    void delete(String id);
-    Student save(Student student);
-}
+@Repository
+public interface StudentRepository extends CrudRepository<Student, String> {}

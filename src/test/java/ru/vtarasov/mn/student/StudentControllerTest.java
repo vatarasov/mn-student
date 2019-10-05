@@ -40,7 +40,7 @@ public class StudentControllerTest {
 
     @BeforeEach
     public void setUp() {
-        notRegisteredStudent = Student.of("Student", 16);
+        notRegisteredStudent = Student.of(null, "Student", 16);
         registeredStudent = notRegisteredStudent.toBuilder().id("id-registered").build();
 
         Mockito.when(studentRegistrationService.find("id-not-registered")).thenReturn(Optional.ofNullable(null));
@@ -80,8 +80,8 @@ public class StudentControllerTest {
 
     @Test
     public void shouldReturnBadRequestWhenTryingToRegisterStudentWithEmptyNullOrNotPresentedName() {
-        Student emptyNameStudent = Student.of("", 16);
-        Student nullNameStudent = Student.of(null, 16);
+        Student emptyNameStudent = Student.of(null, "", 16);
+        Student nullNameStudent = Student.of(null, null, 16);
 
         Mockito.when(studentRegistrationService.register(emptyNameStudent)).thenReturn(emptyNameStudent.toBuilder().id("id").build());
         Mockito.when(studentRegistrationService.register(nullNameStudent)).thenReturn(nullNameStudent.toBuilder().id("id").build());
@@ -101,8 +101,8 @@ public class StudentControllerTest {
 
     @Test
     public void shouldReturnBadRequestWhenTryingToRegisterStudentWithNullLessThanSixteenOrNotPresentedAge() {
-        Student nullAgeStudent = Student.of("Student", null);
-        Student lessThanSixteenAgeStudent = Student.of("Student", 15);
+        Student nullAgeStudent = Student.of(null, "Student", null);
+        Student lessThanSixteenAgeStudent = Student.of(null, "Student", 15);
 
         Mockito.when(studentRegistrationService.register(nullAgeStudent)).thenReturn(nullAgeStudent.toBuilder().id("id").build());
         Mockito.when(studentRegistrationService.register(lessThanSixteenAgeStudent)).thenReturn(lessThanSixteenAgeStudent.toBuilder().id("id").build());

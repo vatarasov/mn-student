@@ -12,7 +12,7 @@ public class StudentRegistrationServiceTest {
 
 	@Test
 	public void shouldRegisterFindUnregisterAndNotFindStudent() {
-		Student registeredStudent = studentRegistrationService.register(Student.of("Student", 16));
+		Student registeredStudent = studentRegistrationService.register(Student.of(null, "Student", 16));
 		Student foundedStudent = studentRegistrationService.find(registeredStudent.getId()).get();
 		Assertions.assertEquals(foundedStudent, registeredStudent);
 
