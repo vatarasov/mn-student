@@ -5,7 +5,7 @@ datasources:
   default:
     url: jdbc:postgresql://localhost:5432/mn_student
     username: postgres
-    password: password
+    password: ***
     driverClassName: org.postgresql.Driver
 jpa:
   default:

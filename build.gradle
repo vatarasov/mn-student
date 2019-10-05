@@ -45,6 +45,7 @@ dependencies {
     compile "io.micronaut.configuration:micronaut-jdbc-hikari"
     runtime "org.postgresql:postgresql:42.2.6"
     compile "io.micronaut.configuration:micronaut-liquibase"
+    testRuntime "com.h2database:h2"
 }
 
 test.classpath += configurations.developmentOnly

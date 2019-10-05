@@ -2,6 +2,8 @@ package ru.vtarasov.mn.student;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
 import io.micronaut.context.annotation.Primary;
+import io.micronaut.context.annotation.Requires;
+import io.micronaut.context.env.Environment;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -16,6 +18,7 @@ import javax.validation.constraints.NotNull;
  */
 @Singleton
 @Primary
+@Requires(env = Environment.TEST)
 public class StudentRepositoryImpl implements StudentRepository {
     private Map<String, Student> students = new ConcurrentHashMap<>();
 
