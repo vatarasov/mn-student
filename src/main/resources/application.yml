@@ -1,6 +1,8 @@
 micronaut:
   application:
     name: student
+  security:
+    enabled: true
 datasources:
   default:
     url: jdbc:postgresql://localhost:5432/mn_student

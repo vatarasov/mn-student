@@ -46,6 +46,7 @@ dependencies {
     runtime "org.postgresql:postgresql:42.2.6"
     compile "io.micronaut.configuration:micronaut-liquibase"
     testRuntime "com.h2database:h2"
+    compile "io.micronaut:micronaut-security"
 }
 
 test.classpath += configurations.developmentOnly
